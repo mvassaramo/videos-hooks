@@ -2,11 +2,11 @@ import React from 'react';
 
 const VideoDetail = ({ video }) => {
   const videoSrc = `https://www.youtube.com/embed/${video.id.videoId}`
-  
+
   return(
     <div>
       <div className="ui embed">
-        <iframe src={videoSrc} alt=""/>
+        <iframe title="video player" src={videoSrc} alt=""/>
       </div>
       <div className="ui segment">
         <h4 className="ui header">{video.snippet.title}</h4>
