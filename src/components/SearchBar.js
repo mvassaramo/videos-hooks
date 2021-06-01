@@ -3,10 +3,6 @@ import React, { useState } from 'react';
 const SearchBar = ({ onFormSubmit }) => {
   const [term, setTerm] = useState('')
 
-  const onInputChange = (event) => {
-    setTerm(event.target.value)
-  }
-
   const onSubmit = (event) => {
     event.preventDefault()
 
@@ -20,7 +16,7 @@ const SearchBar = ({ onFormSubmit }) => {
           <label>Video Search</label>
           <input type="text"
                  value={term}
-                 onChange={onInputChange}/>
+                 onChange={(e) => setTerm(e.target.value)}/>
         </div>
       </form>
     </div>
