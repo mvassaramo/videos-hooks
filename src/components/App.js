@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import youtube from '../apis/youtube';
+import useVideos from '../hooks/useVideos';
 import SearchBar from './SearchBar';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
@@ -7,25 +7,14 @@ import Loader from './Loader';
 
 
 const App = () => {
-  const [videos, setVideos] = useState([])
   const [selectedVideo, setSelectedVideo] = useState(null)
-
+  const { videos, searchVideo } = useVideos('jazz')
 
   useEffect(() => {
-    onFormSubmit('jazz')
-  }, [])
+    setSelectedVideo(videos[0])
 
+  }, [videos])
 
-  const onFormSubmit = async (term) => {
-    const response = await youtube.get('/search', {
-      params: {
-        q: term
-      }
-    })
-
-    setVideos(response.data.items)
-    setSelectedVideo(response.data.items[0])
-  }
 
   const renderVideoDetail = () => {
     return selectedVideo ? <VideoDetail video={selectedVideo} /> : <Loader />;
@@ -33,7 +22,7 @@ const App = () => {
 
   return(
     <div className="ui container">
-      <SearchBar onFormSubmit={onFormSubmit}/>
+      <SearchBar onFormSubmit={searchVideo}/>
       <div className="ui grid">
         <div className="ui row">
           <div className="nine wide column">
